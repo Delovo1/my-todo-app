@@ -2,10 +2,15 @@ import React, { useState } from "react";
 
 const Main = ({ tasks, setTasks }) => {
   const [text, setText] = useState("");
-
+  const [red, setRed] = useState(false);
   const addTask = () => {
-    if (!text.trim()) return;
-
+    if (!text.trim()) {
+      setRed(true);
+      return;
+    }
+    if (text.trim().length > 200) {
+      return;
+    }
     setTasks((prev) => [
       ...prev,
       {
@@ -15,17 +20,15 @@ const Main = ({ tasks, setTasks }) => {
         removing: false,
       },
     ]);
-
+    setRed(false);
     setText("");
   };
 
   const removeTask = (id) => {
-    // 1. запускаем анимацию
     setTasks((prev) =>
       prev.map((task) => (task.id === id ? { ...task, removing: true } : task))
     );
 
-    // 2. реально удаляем после анимации
     setTimeout(() => {
       setTasks((prev) => prev.filter((task) => task.id !== id));
     }, 300);
@@ -34,10 +37,23 @@ const Main = ({ tasks, setTasks }) => {
   return (
     <div className="main">
       <div className="buttons">
+        <p
+          className={`counter ${
+            text.trim().length > 200
+              ? "counter--error"
+              : text.trim().length > 180
+              ? "counter--warn"
+              : ""
+          }`}
+        >
+          {text.trim().length} / 200
+        </p>
+
         <input
           value={text}
           onChange={(e) => setText(e.target.value)}
           placeholder="Enter your task"
+          style={{ borderColor: red ? "red" : "black" }}
         />
         <button className="addTodo" onClick={addTask}>
           ДОБАВИТЬ ЗАДАЧУ
@@ -54,7 +70,7 @@ const Main = ({ tasks, setTasks }) => {
             <label>{task.text}</label>
 
             <img
-              src="images/Union.png"
+              src={`${process.env.PUBLIC_URL}/images/Union.png`}
               alt="delete"
               onClick={() => removeTask(task.id)}
             />

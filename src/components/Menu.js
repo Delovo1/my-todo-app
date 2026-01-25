@@ -4,7 +4,7 @@ const Menu = ({ menuOpen, setMenuOpen }) => {
   return (
     <div className={`menu ${menuOpen ? "open" : ""}`}>
       <img
-        src="images/Стрелочка.png"
+        src={`${process.env.PUBLIC_URL}/images/Стрелочка.png`}
         alt="Стрелка"
         onClick={() => setMenuOpen(false)}
       />

@@ -11,7 +11,10 @@ const Footer = () => {
             target="_blank"
             rel="noopener noreferrer"
           >
-            <img src="images/github.png" alt="GitHub" />
+            <img
+              src={`${process.env.PUBLIC_URL}/images/github.png`}
+              alt="GitHub"
+            />
           </a>
           <a
             href="https://github.com/Delovo1/todolist.git"
@@ -39,7 +42,10 @@ const Footer = () => {
               target="_blank"
               rel="noopener noreferrer"
             >
-              <img src="images/telegram.png" alt="Telegram" />
+              <img
+                src={`${process.env.PUBLIC_URL}/images/telegram.png`}
+                alt="Telegram"
+              />
             </a>
           </div>
           <div className="contact">
@@ -55,7 +61,10 @@ const Footer = () => {
               target="_blank"
               rel="noopener noreferrer"
             >
-              <img src="images/telegram.png" alt="Telegram" />
+              <img
+                src={`${process.env.PUBLIC_URL}/images/telegram.png`}
+                alt="Telegram"
+              />
             </a>
           </div>
         </div>
