@@ -3,14 +3,23 @@ import React, { useState } from "react";
 const Main = ({ tasks, setTasks }) => {
   const [text, setText] = useState("");
   const [red, setRed] = useState(false);
+
+  const toggleTodo = (id) => {
+    setTasks((prev) =>
+      prev.map((task) =>
+        task.id === id ? { ...task, completed: !task.completed } : task
+      )
+    );
+  };
+
   const addTask = () => {
     if (!text.trim()) {
       setRed(true);
       return;
     }
-    if (text.trim().length > 200) {
-      return;
-    }
+
+    if (text.trim().length > 200) return;
+
     setTasks((prev) => [
       ...prev,
       {
@@ -20,8 +29,9 @@ const Main = ({ tasks, setTasks }) => {
         removing: false,
       },
     ]);
-    setRed(false);
+
     setText("");
+    setRed(false);
   };
 
   const removeTask = (id) => {
@@ -55,27 +65,38 @@ const Main = ({ tasks, setTasks }) => {
           placeholder="Enter your task"
           style={{ borderColor: red ? "red" : "#8c8273" }}
         />
+
         <button className="addTodo" onClick={addTask}>
           ДОБАВИТЬ ЗАДАЧУ
         </button>
       </div>
 
       <div className="todolist">
-        {tasks.map((task) => (
-          <div
-            key={task.id}
-            className={`task ${task.removing ? "removing" : ""}`}
-          >
-            <input type="checkbox" />
-            <label>{task.text}</label>
+        {[...tasks]
+          .sort((a, b) => a.completed - b.completed)
+          .map((task) => (
+            <div
+              key={task.id}
+              className={`task 
+                ${task.removing ? "removing" : ""} 
+                ${task.completed ? "completed" : ""}
+              `}
+            >
+              <input
+                type="checkbox"
+                checked={task.completed}
+                onChange={() => toggleTodo(task.id)}
+              />
 
-            <img
-              src={`${process.env.PUBLIC_URL}/images/Union.png`}
-              alt="delete"
-              onClick={() => removeTask(task.id)}
-            />
-          </div>
-        ))}
+              <label>{task.text}</label>
+
+              <img
+                src={`${process.env.PUBLIC_URL}/images/Union.png`}
+                alt="delete"
+                onClick={() => removeTask(task.id)}
+              />
+            </div>
+          ))}
       </div>
     </div>
   );
