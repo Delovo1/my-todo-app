@@ -53,7 +53,7 @@ const Main = ({ tasks, setTasks }) => {
           value={text}
           onChange={(e) => setText(e.target.value)}
           placeholder="Enter your task"
-          style={{ borderColor: red ? "red" : "black" }}
+          style={{ borderColor: red ? "red" : "#8c8273" }}
         />
         <button className="addTodo" onClick={addTask}>
           ДОБАВИТЬ ЗАДАЧУ
