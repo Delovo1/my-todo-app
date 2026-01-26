@@ -147,8 +147,24 @@ nav h2 {
   border-radius: 1rem;
   transition: all 0.3s;
 }
+.sorted {
+  width: 5rem;
+  position: absolute;
+  right: 2.5rem;
+  top: -5rem;
+  transition: all 0.3s;
 
+}
+.sorted:hover {
+    -webkit-filter: drop-shadow(3px 5px 5px #a0a0a0);
+  filter: drop-shadow(1px 1px 3px #a9a9a9);
+}
+
+.sorted.off {
+  display: none;
+}
 .todolist {
+  position: relative;
   min-height: 60rem;
   margin-bottom: 7rem;
   font-family: "Exo2";
@@ -355,7 +371,7 @@ footer {
 }
 .buttons input {
   font-size: 2rem;
-  min-width: 40rem;
+  width: 30%;
   border-radius: 1.5rem;
   border: thin solid #8c8273;
   background-color: #232627;
